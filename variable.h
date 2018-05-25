@@ -43,7 +43,7 @@ GLbyte  direction ;
 GLdouble innerRaidus=0.3;
 GLdouble outterRaidus=0.6;
 char car[100] =  "Score:";
-char* gameover =  "Vous avez perdu!  ton score:";
+char* gameover =  "Vous avez perdu!  votre score:";
 char * rejouer = "Pour rejouer tapez u(2D) ou i(3D) ou q pour quitter";
 char string1[100]="pour commencer en mode 2D->taper'u'";
 char string2[100]="pour commencer en mode 3D->taper'i'";

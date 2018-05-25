@@ -14,7 +14,7 @@ void Animer(){
 	if (r == 0){
 		pObs.x = rayon*sin(angle);
 		pObs.z= rayon*cos(angle);
-		angle += 0.001;
+		angle += 0.005;
 		if (angle > 360) angle = 0;
 	        glutPostRedisplay();
 }
@@ -61,7 +61,6 @@ void GererClavier(unsigned char touche, int x, int y){
 			if (flagNaviguer==1) {
 				direction=0;
 			}
-			printf("pObsx %f pObsy %f pObsz %f \n",pObs.x,pObs.y,pObs.z);
 
 			break;
 		case 'a':
@@ -96,21 +95,14 @@ void GererClavier(unsigned char touche, int x, int y){
 		/*case 'w':
 			if (direction != DOWN) {
 				direction = UP;
-
-
 					glutPostRedisplay();
-
 			}
-
 			break;
 		case 's':
 			if (direction != UP) {
 				direction = DOWN;
-
 	  				glutPostRedisplay();
-
 			}
-
 			break;
 */
 	  case 'u':
@@ -243,25 +235,25 @@ void resetGame(){
 	}
 }
 
-void drawTree(float X,float Z){
-	glPushMatrix();
-  glTranslated(X,0.5,Z);
-  glScalef(0.3,1,0.3);
-  glColor3f(0.647059f,0.164706f, 0.164706f);
-  glutSolidCube(taille_tree);
-  glPopMatrix();
-  glPushMatrix();
-  glTranslated(X,1,Z);
-	glScalef(0.3,0.3,0.3);
-  glColor3f(0,0.5f,0);
-  glutSolidSphere(2, 20, 20);
-  glPopMatrix();
-}
-void drawTrees(){
-	for (int i = 0; i < 14; i++){
-  	drawTree(tabPosArbres[i].x,tabPosArbres[i].z);
-  }
-}
+// void drawTree(float X,float Z){//alpha version
+// 	glPushMatrix();
+//   glTranslated(X,0.5,Z);
+//   glScalef(0.3,1,0.3);
+//   glColor3f(0.647059f,0.164706f, 0.164706f);
+//   glutSolidCube(taille_tree);
+//   glPopMatrix();
+//   glPushMatrix();
+//   glTranslated(X,1,Z);
+// 	glScalef(0.3,0.3,0.3);
+//   glColor3f(0,0.5f,0);
+//   glutSolidSphere(2, 20, 20);
+//   glPopMatrix();
+// }
+// void drawTrees(){
+// 	for (int i = 0; i < 14; i++){
+//   	//drawTree(tabPosArbres[i].x,tabPosArbres[i].z);
+//   }
+// }
 
 
 // void drawObst1(position ps){
@@ -298,18 +290,20 @@ void drawTrees(){
 void drawSnake(){
 	int i = 0;
 	//head of the snake
-  glPushMatrix();
-	glTranslatef(snake.x,0.5,snake.z);
-	glScalef(0.3, 0.3, 0.3);
-	glColor3f(0.0,1.5,0.0);
-	glutSolidCube(1);
-	glPopMatrix();
+
+		glPushMatrix();
+		glTranslatef(snake.x,0.5,snake.z);
+		glScalef(0.3, 0.3, 0.3);
+		glColor3f(0,0.5,0);
+		glutSolidCube(1);
+		glPopMatrix();
+
 //body
 	for (i = 0; i < snakeLenght; i++){
 		glPushMatrix();
 		glTranslatef(snakeBody[i].x,0.5, snakeBody[i].z);
 		glScalef(0.3, 0.3, 0.3);
-		glColor3f(0.0,1.5,0.0);
+		glColor3f(0,0.5,0);
 		glutSolidCube(1);
 		glPopMatrix();
 	}
@@ -343,13 +337,13 @@ void moveSnakePos(){
 	float fraction=0.1f;
 	if (direction == RIGHT) {
 		cc=1;
-		p.x+=.01;
+		p.x+=.01;//difficulte 1
 		p2.x+=.01;
-		if (cpt>=5) {
+		if (cpt>=8) {//difficulte 2
 			p.x+=.01;
 			p2.x+=.01;
 		}
-	 	if (cpt>=10) {
+	 	if (cpt>=15) {//difficulte 3
 			p.x+=.01;
 			p2.x+=.01;
 		}
@@ -361,11 +355,11 @@ void moveSnakePos(){
 		cc=1;
 		p.x-=.01;
 		p2.x-=.01;
-		if (cpt>=5) {
+		if (cpt>=8) {
 			p.x-=.01;
 			p2.x-=.01;
 		}
-	 	if (cpt>=10) {
+	 	if (cpt>=15) {
 			p.x-=.01;
 			p2.x-=.01;
 		}
@@ -378,11 +372,11 @@ void moveSnakePos(){
 		cc=0;
 		p.z-=.01;
 		p2.z-=.01;
-		if (cpt>=5) {
+		if (cpt>=8) {
 			p.z-=.01;
 			p2.z-=.01;
 		}
-	 	if (cpt>=10) {
+	 	if (cpt>=15) {
 			p.z-=.01;
 			p2.z-=.01;
 		}
@@ -390,18 +384,17 @@ void moveSnakePos(){
 		Vspeed.y=0;
 		Vspeed.z=-1;
 		glutPostRedisplay();
-		// printf("pObsx %f pObsy %f pObsz %f \n",pObs.x,pObs.y,pObs.z);
 
 
 	}else if (direction == DOWN) {
    	cc=0;
 		p.z+=.01;
 		p2.z+=.01;
-		if (cpt>=5) {
+		if (cpt>=8) {
 		p.z+=.01;
 		p2.z+=.01;
 		}
-	 	if (cpt>=10) {
+	 	if (cpt>=15) {
 		p.z+=.01;
 		p2.z+=.01;
 		}
@@ -412,18 +405,18 @@ void moveSnakePos(){
 	}
 }
 
-void rsem(position ps){
+void drawTree(position ps){
 	glPushMatrix();
   glTranslatef(ps.x,0.5,ps.z);
-	glColor3f(1.0,0.5,0);
-	glScalef(0.3, 0.3, 0.3);
+	glScalef(0.3,1,0.3);
+	glColor3f(0.647059f,0.164706f, 0.164706f);
 	glutSolidCube(1);
 	glPopMatrix();
 	glPushMatrix();
 	glTranslatef(ps.x,1.0,ps.z);
 	glScalef(0.3, 0.3, 0.3);
   glColor3f(0,0.5,0);
-	//glutSolidSphere(2, 20,20);
+	glutSolidSphere(2, 20,20);
 	glPopMatrix();
 }
 
@@ -448,6 +441,7 @@ void drawSnowMan() {
 	glutSolidCone(0.08f,0.5f,10,2);
 }
 void plan(float longe){
+
  	glBegin(GL_POLYGON);
   glColor3f(0.747059f,0.864706f, 0.164706f);
 	glVertex3f(longe,0,(longe));
@@ -498,8 +492,8 @@ void plan(float longe){
 		}
 		p3.x=(float)(rand()%(Xmax-(-1*Xmax))+(-1*Xmax));
 		p3.z=(float)(rand()%(Xmax-(-1*Xmax))+(-1*Xmax));
-		p4.x=p3.x+1;
-		p4.z=p3.z+1;
+		p4.x=p3.x+1;//utilise juste pr optimiser un peu les tests de collisions
+	 	p4.z=p3.z+1;
 	}else if(p.x<=-(longe-1) ||p.z>=longe ||p2.x>=longe||p2.z<=-(longe-1) ){
  		sprintf(str, "%d", cpt);
  		strncpy(string,gameover	,100);
@@ -509,17 +503,17 @@ void plan(float longe){
 		glTranslated(cx,cy+4,cz);
  		print(0,0,0,string);
 		glPopMatrix();
-		glPushMatrix();
-		glColor3f(0,0,1.5);
-		glTranslated(cx,cy+3,cz+28);
- 		print(0,0,0,rejouer);
-		glPopMatrix();
+		// glPushMatrix();
+		// glColor3f(0,0,1.5);
+		// //glTranslated(cx,cy+3,cz);
+ 		// print(0,0,0,rejouer);
+		// glPopMatrix();
 		//printf("zan9aaaaaaaaaaaaaaaaaaaaaa zan9aaaaaaaaaaaaaaaaaaaaaa\n" );
 		resetGame();
-	}else if (cpt>=7){
+	}else if (cpt>=7){//collision avec le corps
 		for ( int i = 150; i <=snakeLenght; i++){
 			if (fabs(p.x-snakeBody[i].x)<=0.25&&fabs(p.z-snakeBody[i].z)<=0.25){
-				printf("ksida ksida ksida ksida m3a le %d em ksida ksida ksida ksida m3a le %d eme\n",i,i);
+				// printf("ksida ksida ksida ksida m3a le %d em ksida ksida ksida ksida m3a le %d eme\n",i,i);
 				sprintf(str, "%d", cpt);
  				strncpy(string,gameover	,100);
   			strcat(string, str);
@@ -590,12 +584,12 @@ void Affichage() {
 		 // Set the camera
 		 gluLookAt(x,1.3f,z,x+lx,1.0f, z+lz,0.0f, 1.0f, 0.0f);
 		}else if(flagNaviguer==0){
-		
+
    		gluLookAt(pObs.x,pObs.y,pObs.z,cx,cy,cz,0,1,0);
 		}
    	glPushMatrix();
     plan(longe);
-    drawTrees(); // dessiner les arbres en les considerant commes des obstacles
+    //drawTrees(); // dessiner les arbres en les considerant commes des obstacles
 		moveSnakeBody(snake.x,snake.y,snake.z);
    	moveSnakePos();
 		glPopMatrix();
@@ -618,10 +612,11 @@ void Affichage() {
 		angle_camera+=0.01;
 		glutSolidTorus(innerRaidus,outterRaidus,sides,rings);
 		glPopMatrix();
+
 		for (int i = 0; i < 14; i++){
-			rsem(tabPosArbres[i]);
+			drawTree(tabPosArbres[i]); // dessiner les arbres en les considerant commes des obstacles
 		}
-		for (int i = 15; i < 29; i++){
+		for (int i = 14; i < 29; i++){//dessiner les obstacles type 2
 			glPushMatrix();
 			glColor3f(0.0,0.064706f, 0.464706f);
 			glTranslated(tabPosArbres[i].x,0.5,tabPosArbres[i].z);
@@ -708,7 +703,6 @@ int main(int argc, char * argv[]) {
 
   p3.x=2.0;p3.y=1.0;p3.z=2;
 	p4.x=3.0;p4.y=2.0;p4.z=3;
-
 	t1.x=-5;t1.y=0.0;t1.z=-5.0;
 	t2.x=-4;t2.y=0.0;t2.z=-4.0;
 	t3.x=-8.0;t3.y=0.0;t3.z=8.0;
@@ -739,13 +733,11 @@ int main(int argc, char * argv[]) {
 	t28.x=-12.5;t28.y=0.0;t28.z=-2.0;
 	t29.x=-15.0;t29.y=0.0;t29.z=-5.0;
 
-	taille_tree=1;
 
 	tabPosArbres[0]=t1;tabPosArbres[1]=t2;tabPosArbres[2]=t3;tabPosArbres[3]=t4;tabPosArbres[4]=t5;tabPosArbres[5]=t6;
 	tabPosArbres[6]=t7;tabPosArbres[7]=t8;tabPosArbres[8]=t9;tabPosArbres[9]=t10;tabPosArbres[10]=t11;tabPosArbres[11]=t12;tabPosArbres[12]=t13;tabPosArbres[13]=t14;tabPosArbres[14]=t15;tabPosArbres[15]=t16;tabPosArbres[16]=t17;
 	tabPosArbres[17]=t18;tabPosArbres[18]=t19;tabPosArbres[19]=t20;tabPosArbres[20]=t21;tabPosArbres[21]=t22;tabPosArbres[22]=t23;tabPosArbres[23]=t24;tabPosArbres[24]=t25;tabPosArbres[25]=t26;tabPosArbres[26]=t27;tabPosArbres[27]=t28;
 	tabPosArbres[28]=t29;
-
 
 	Vspeed.x=0;
 	Vspeed.y=0;
@@ -762,8 +754,6 @@ int main(int argc, char * argv[]) {
 	glEnable(GL_DEPTH_TEST);
 	pObs.x=-15.0;pObs.y=15.0;pObs.z=25.0;
   flagNaviguer=0;
-			/**offset.x+=h*sin(angle_camera);
-			offset.z+=h*cos(angle_camera);*/
 	glutDisplayFunc(Affichage);
 	glutKeyboardFunc(GererClavier);
 	glutSpecialFunc(processSpecialKeys);
