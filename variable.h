@@ -50,6 +50,7 @@ char string2[100]="pour commencer en mode 3D->taper'i'";
 char string3[100]="selectionner le mode de jeu:";
 char string4[100]="pour naviguer ds l'univers->taper'p'";
 char string5[100]="nb:vous pouvez switcher entre les 2 modes";
+// me from the future: these flags should have been removed !
 int flg=0;
 int flg2=0;
 int flg3=0;
@@ -58,24 +59,24 @@ float f,g;
 // actual vector representing the camera's direction
 float lx=0.0f,lz=-1.0f;
 // XZ position of the camera
-float x=0.0f,z=5.0f;
-int flagNaviguer=1;
-int cc=0;
+float x = 0.0f,z = 5.0f;
+int flagNaviguer = 1;
+int cc = 0;
 
 char str[80];
 char string[1000];
-int cpt=0;
+int cpt = 0;
 float h;
 float eyex,eyey,eyez;
-int switchCam=-1;
+int switchCam = -1;
 
-GLint sides =10;
-GLint rings =10;
+GLint sides = 10;
+GLint rings = 10;
 float taille_tree;
-float longe=17.0;
+float longe = 17.0;
 position tabPosArbres[20];
 float X,Z,P;
-int pressed=0;
-int pressed2=0;
-   		int Xmax =8;
-      float cx,cy,cz;
+int pressed = 0;
+int pressed2 = 0;
+int Xmax = 8;
+float cx,cy,cz;
